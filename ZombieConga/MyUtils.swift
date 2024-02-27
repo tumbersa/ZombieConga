@@ -17,43 +17,43 @@ func += (left: inout CGPoint, right: CGPoint) {
 }
 
 func - (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x - right.x, y: left.y - right.y)
+    return CGPoint(x: left.x - right.x, y: left.y - right.y)
 }
 
 func -= (left: inout CGPoint, right: CGPoint) {
-  left = left - right
+    left = left - right
 }
 
 func * (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x * right.x, y: left.y * right.y)
+    return CGPoint(x: left.x * right.x, y: left.y * right.y)
 }
 
 func *= (left: inout CGPoint, right: CGPoint) {
-  left = left * right
+    left = left * right
 }
 
 func * (point: CGPoint, scalar: CGFloat) -> CGPoint {
-  return CGPoint(x: point.x * scalar, y: point.y * scalar)
+    return CGPoint(x: point.x * scalar, y: point.y * scalar)
 }
 
 func *= (point: inout CGPoint, scalar: CGFloat) {
-  point = point * scalar
+    point = point * scalar
 }
 
 func / (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x / right.x, y: left.y / right.y)
+    return CGPoint(x: left.x / right.x, y: left.y / right.y)
 }
 
 func /= ( left: inout CGPoint, right: CGPoint) {
-  left = left / right
+    left = left / right
 }
 
 func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
-  return CGPoint(x: point.x / scalar, y: point.y / scalar)
+    return CGPoint(x: point.x / scalar, y: point.y / scalar)
 }
 
 func /= (point: inout CGPoint, scalar: CGFloat) {
-  point = point / scalar
+    point = point / scalar
 }
 
 #if !(arch(x86_64) || arch(arm64))
@@ -83,19 +83,27 @@ extension CGPoint {
 let pi = CGFloat.pi
 func shortestAngleBetween(angle1: CGFloat,
                           angle2: CGFloat) -> CGFloat {
-  let twoPi = pi * 2.0
-  var angle = (angle2 - angle1).truncatingRemainder(dividingBy: twoPi)
-  if angle >= pi {
-    angle = angle - twoPi
-  }
-  if angle <= -pi {
-    angle = angle + twoPi
-  }
-  return angle
+    let twoPi = pi * 2.0
+    var angle = (angle2 - angle1).truncatingRemainder(dividingBy: twoPi)
+    if angle >= pi {
+        angle = angle - twoPi
+    }
+    if angle <= -pi {
+        angle = angle + twoPi
+    }
+    return angle
 }
 
 extension CGFloat {
-  func sign() -> CGFloat {
-    self >= 0.0 ? 1.0 : -1.0
-  }
+    func sign() -> CGFloat {
+        self >= 0.0 ? 1.0 : -1.0
+    }
+
+    static func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / Float(UInt32.max))
+    }
+    static func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        assert(min < max)
+        return CGFloat.random() * (max - min) + min
+    }
 }

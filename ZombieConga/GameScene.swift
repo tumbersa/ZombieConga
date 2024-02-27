@@ -44,6 +44,7 @@ class GameScene: SKScene {
         
         zombie.position = CGPoint(x: 400, y: 400)
         addChild(zombie)
+        spawnEnemy()
         
         debugDrawPlayableArea()
     }
@@ -55,12 +56,13 @@ class GameScene: SKScene {
             dt = 0
         }
         lastUpdateTime = currentTime
-        print("\(dt*1000) milliseconds since last update")
 
         defer {
             boundsCheckZombie()
         }
-        guard let lastTouchLocation else { return }
+        guard let lastTouchLocation else {
+            return
+        }
         if (lastTouchLocation - zombie.position).length() > zombieMovePointsPerSec * dt {
             move(sprite: zombie, velocity: velocity)
             rotate(sprite: zombie, direction: velocity, rotateRadiansPerSec: zombieRotateRadiansPerSec)
@@ -71,23 +73,32 @@ class GameScene: SKScene {
         
     }
     
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
-        sceneTouched(touchLocation: touchLocation)
-        lastTouchLocation = touchLocation
+        if isTouchLocationInSprite(touchLocation: touchLocation, sprite: zombie) {
+            sceneTouched(touchLocation: touchLocation)
+            lastTouchLocation = touchLocation
+        } else {
+            sceneTouched(touchLocation: touchLocation)
+            lastTouchLocation = .zero
+        }
     }
-    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
-        sceneTouched(touchLocation: touchLocation)
-        lastTouchLocation = .zero
+        if isTouchLocationInSprite(touchLocation: touchLocation, sprite: zombie) {
+            sceneTouched(touchLocation: touchLocation)
+            lastTouchLocation = touchLocation
+        } else {
+            sceneTouched(touchLocation: touchLocation)
+            lastTouchLocation = .zero
+        }
     }
     
     private func move(sprite: SKSpriteNode, velocity: CGPoint) {
          let amountToMove = velocity * CGFloat(dt)
-         print("Amount to move: \(amountToMove)")
          sprite.position += amountToMove
     }
     
@@ -121,7 +132,6 @@ class GameScene: SKScene {
           zombie.position.y = topRight.y
           velocity.y = -velocity.y
         }
-        print(velocity)
       }
     
     private func debugDrawPlayableArea() {
@@ -143,5 +153,40 @@ class GameScene: SKScene {
         }
         amountToRotate *= shortest.sign()
         sprite.zRotation += amountToRotate
+    }
+    
+    private func spawnEnemy() {
+        let enemy = SKSpriteNode(imageNamed: "enemy")
+        enemy.position = CGPoint(x: size.width + enemy.size.width/2,
+                                 y: size.height/2)
+        addChild(enemy)
+        
+        let actionMidMove = SKAction.moveBy(
+          x: -size.width/2-enemy.size.width/2,
+          y: -playableRect.height/2 + enemy.size.height/2,
+          duration: 1.0)
+        let actionMove = SKAction.moveBy(
+          x: -size.width/2-enemy.size.width/2,
+          y: playableRect.height/2 - enemy.size.height/2,
+          duration: 1.0)
+        
+        let wait = SKAction.wait(forDuration: 0.25)
+        let logMessage = SKAction.run() {
+            print("Reached bottom!")
+          }
+        let halfSequence = SKAction.sequence(
+          [actionMidMove, logMessage, wait, actionMove])
+        let sequence = SKAction.sequence(
+          [halfSequence, halfSequence.reversed()])
+        
+        let repeatAction = SKAction.repeatForever(sequence)
+        enemy.run(repeatAction)
+    }
+    
+    private func isTouchLocationInSprite(touchLocation: CGPoint, sprite: SKSpriteNode) -> Bool {
+        touchLocation.x >= (sprite.position.x - sprite.size.width / 2)
+        && touchLocation.x <= (sprite.position.x + sprite.size.width / 2)
+        && touchLocation.y >= (sprite.position.y - sprite.size.height / 2)
+        && touchLocation.y <= (sprite.position.y + sprite.size.height / 2)
     }
 }
