@@ -14,10 +14,10 @@
             filePath = "ZombieConga/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "boundsCheckZombie()"
-            landmarkType = "7">
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "GameScene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -30,8 +30,8 @@
             filePath = "ZombieConga/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "update(_:)"
             landmarkType = "7">
          </BreakpointContent>
