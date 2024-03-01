@@ -8,11 +8,13 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    var isInvincible: Bool = false
+    
     ///reuse and pre-production of sound
     let catCollisionSound: SKAction = SKAction.playSoundFileNamed(
-      "hitCat.wav", waitForCompletion: false)
+      "hitCat.wav", waitForCompletion: true)
     let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed(
-      "hitCatLady.wav", waitForCompletion: false)
+      "hitCatLady.wav", waitForCompletion: true)
     let zombieAnimation: SKAction
     
     let zombieRotateRadiansPerSec: CGFloat = 4.0 * pi
@@ -21,6 +23,7 @@ class GameScene: SKScene {
     
     var lastUpdateTime: TimeInterval = 0
     var dt: TimeInterval = 0
+    let trainMovePointsPerSec: CGFloat = 480.0
     let zombieMovePointsPerSec: CGFloat = 480.0
     var velocity = CGPoint.zero
     
@@ -61,6 +64,7 @@ class GameScene: SKScene {
         addChild(background)
         
         zombie.position = CGPoint(x: 400, y: 400)
+        zombie.zPosition = 100
         addChild(zombie)
         
         run(SKAction.repeatForever(SKAction.sequence([
@@ -79,6 +83,7 @@ class GameScene: SKScene {
         debugDrawPlayableArea()
     }
     
+    //MARK: - SpriteKit cycle
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
           dt = currentTime - lastUpdateTime
@@ -89,6 +94,7 @@ class GameScene: SKScene {
 
         defer {
             boundsCheckZombie()
+            moveTrain()
             //checkCollisions()
         }
         guard let lastTouchLocation else {
@@ -111,6 +117,7 @@ class GameScene: SKScene {
         checkCollisions()
     }
     
+    //MARK: - touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
@@ -256,13 +263,36 @@ class GameScene: SKScene {
     }
     
     private func zombieHit(cat: SKSpriteNode) {
-        cat.removeFromParent()
-        run(catCollisionSound)
+        if !isInvincible {
+            cat.name = "train"
+            cat.removeAllActions()
+            cat.setScale(1)
+            cat.zRotation = 0
+            cat.run(SKAction.colorize(with: .green, colorBlendFactor: 1, duration: 0.1))
+            run(catCollisionSound)
+        }
     }
     
     private func zombieHit(enemy: SKSpriteNode) {
-        enemy.removeFromParent()
-        run(enemyCollisionSound)
+        if !isInvincible {
+            run(enemyCollisionSound)
+            let blinkTimes = 10.0
+            let duration = 3.0
+            let blinkAction = SKAction.customAction(
+                withDuration: duration) {[weak self] node, elapsedTime in
+                    guard let self else { return }
+                    let slice = duration / blinkTimes
+                    let remainder = Double(elapsedTime).truncatingRemainder(
+                        dividingBy: slice)
+                    zombie.isHidden = remainder > slice / 2
+                }
+            let isInvicibleToFalse = SKAction.customAction(withDuration: 0) { [weak self] _, _ in
+                self?.zombie.isHidden = false
+                self?.isInvincible = false
+            }
+            isInvincible = true
+            zombie.run(SKAction.sequence([blinkAction,isInvicibleToFalse]))
+        }
     }
     
     ///Don’t remove the nodes from within the enumeration.
@@ -290,4 +320,23 @@ class GameScene: SKScene {
         zombieHit(enemy: enemy)
       }
     }
+    
+    private func moveTrain() {
+        var targetPosition = zombie.position
+        enumerateChildNodes(withName: "train") {[weak self] node, stop in
+            guard let self else { return }
+          if !node.hasActions() {
+            let actionDuration = 0.3
+            let offset = targetPosition - node.position
+              let direction = offset.normalized()
+              let amountToMovePerSec = direction * trainMovePointsPerSec * CGFloat(dt)
+              let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
+              let moveAction = SKAction.customAction(withDuration: actionDuration) { node, _ in
+                  node.position += amountToMove
+              }
+            node.run(moveAction)
+          }
+          targetPosition = node.position
+        }
+      }
 }
