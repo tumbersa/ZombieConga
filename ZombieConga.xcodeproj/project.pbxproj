@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4548D7A2B92069700EF7634 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4548D792B92069700EF7634 /* GameOverScene.swift */; };
 		A49A72272B8E066B00E3E077 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = A49A72222B8E066B00E3E077 /* win.wav */; };
 		A49A72282B8E066B00E3E077 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = A49A72232B8E066B00E3E077 /* lose.wav */; };
 		A49A72292B8E066B00E3E077 /* hitCat.wav in Resources */ = {isa = PBXBuildFile; fileRef = A49A72242B8E066B00E3E077 /* hitCat.wav */; };
@@ -20,9 +21,13 @@
 		A4C8CDEC2B8BD3E0003FED8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C8CDEA2B8BD3E0003FED8D /* Main.storyboard */; };
 		A4C8CDEE2B8BD3E2003FED8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C8CDED2B8BD3E2003FED8D /* Assets.xcassets */; };
 		A4C8CDF12B8BD3E2003FED8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C8CDEF2B8BD3E2003FED8D /* LaunchScreen.storyboard */; };
+		A4FDCBE72B96F3C900371256 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FDCBE62B96F3C900371256 /* MainMenuScene.swift */; };
+		A4FDCBED2B9713C300371256 /* Catbrother.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4FDCBEC2B9713C300371256 /* Catbrother.ttf */; };
+		A4FDCBEF2B97146200371256 /* Summer Festival Free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4FDCBEE2B97146200371256 /* Summer Festival Free.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A4548D792B92069700EF7634 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		A49A72222B8E066B00E3E077 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		A49A72232B8E066B00E3E077 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
 		A49A72242B8E066B00E3E077 /* hitCat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCat.wav; sourceTree = "<group>"; };
@@ -37,6 +42,10 @@
 		A4C8CDEB2B8BD3E0003FED8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4C8CDED2B8BD3E2003FED8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4C8CDF02B8BD3E2003FED8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A4FDCBE62B96F3C900371256 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		A4FDCBEB2B9711E500371256 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A4FDCBEC2B9713C300371256 /* Catbrother.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Catbrother.ttf; sourceTree = "<group>"; };
+		A4FDCBEE2B97146200371256 /* Summer Festival Free.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Summer Festival Free.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +59,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4548D7B2B9206AB00EF7634 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				A4C8CDE62B8BD3E0003FED8D /* GameScene.swift */,
+				A4548D792B92069700EF7634 /* GameOverScene.swift */,
+				A4FDCBE62B96F3C900371256 /* MainMenuScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		A49A72212B8E066B00E3E077 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +85,7 @@
 		A49A722C2B8E068B00E3E077 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				A4FDCBEA2B97116900371256 /* fonts */,
 				A49A72212B8E066B00E3E077 /* sounds */,
 			);
 			path = resources;
@@ -90,9 +110,10 @@
 		A4C8CDDF2B8BD3E0003FED8D /* ZombieConga */ = {
 			isa = PBXGroup;
 			children = (
+				A4FDCBEB2B9711E500371256 /* Info.plist */,
+				A4548D7B2B9206AB00EF7634 /* Scenes */,
 				A49A722C2B8E068B00E3E077 /* resources */,
 				A4C8CDE02B8BD3E0003FED8D /* AppDelegate.swift */,
-				A4C8CDE62B8BD3E0003FED8D /* GameScene.swift */,
 				A4C8CDE82B8BD3E0003FED8D /* GameViewController.swift */,
 				A4C8CDEA2B8BD3E0003FED8D /* Main.storyboard */,
 				A4C8CDED2B8BD3E2003FED8D /* Assets.xcassets */,
@@ -100,6 +121,15 @@
 				A4B8AD922B8CC914004E19DD /* MyUtils.swift */,
 			);
 			path = ZombieConga;
+			sourceTree = "<group>";
+		};
+		A4FDCBEA2B97116900371256 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A4FDCBEE2B97146200371256 /* Summer Festival Free.ttf */,
+				A4FDCBEC2B9713C300371256 /* Catbrother.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,8 +196,10 @@
 				A49A72272B8E066B00E3E077 /* win.wav in Resources */,
 				A49A72292B8E066B00E3E077 /* hitCat.wav in Resources */,
 				A4C8CDEE2B8BD3E2003FED8D /* Assets.xcassets in Resources */,
+				A4FDCBED2B9713C300371256 /* Catbrother.ttf in Resources */,
 				A49A722A2B8E066B00E3E077 /* hitCatLady.wav in Resources */,
 				A49A722E2B8E0B8900E3E077 /* backgroundMusic2.mp3 in Resources */,
+				A4FDCBEF2B97146200371256 /* Summer Festival Free.ttf in Resources */,
 				A4C8CDF12B8BD3E2003FED8D /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,6 +211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4FDCBE72B96F3C900371256 /* MainMenuScene.swift in Sources */,
+				A4548D7A2B92069700EF7634 /* GameOverScene.swift in Sources */,
 				A4C8CDE72B8BD3E0003FED8D /* GameScene.swift in Sources */,
 				A4C8CDE92B8BD3E0003FED8D /* GameViewController.swift in Sources */,
 				A4C8CDE12B8BD3E0003FED8D /* AppDelegate.swift in Sources */,
@@ -336,6 +370,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82HCH9V652;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZombieConga/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -363,6 +398,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 82HCH9V652;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZombieConga/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
